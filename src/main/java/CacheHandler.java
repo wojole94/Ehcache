@@ -15,8 +15,8 @@ public class CacheHandler {
 	
 	CacheHandler(){
 		
-		final URL config = this.getClass().getResource("ehcache.xml");
-		manager = new CacheManager(config);
+		final URL config = this.getClass().getResource("/ehcache.xml");
+		manager = CacheManager.newInstance(config);
 		cache = manager.getCache("cacheStore");	
 		cacheEventListener = new MyListener();
 		cache.getCacheEventNotificationService().registerListener(cacheEventListener);
@@ -87,6 +87,7 @@ public class CacheHandler {
 	protected void finalize() {
 		
 		manager.shutdown();
+		instance = null;
 	
 	}
 }
