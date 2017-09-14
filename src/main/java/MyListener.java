@@ -11,29 +11,29 @@ public class MyListener implements CacheEventListener {
 	}
 
 	public void notifyElementEvicted(Ehcache arg0, Element arg1) {
-		System.out.println("|============ element evicted: "+ arg1.getObjectKey() + "==========|");
+		System.out.println("|============ element evicted: "+ arg1.getObjectKey() + "," + arg1.getObjectValue() + "==========|");
 	}
 
 	public void notifyElementExpired(Ehcache arg0, Element arg1) {
-		System.out.println("|============ element expired: "+ arg1.getObjectKey() + "==========|");
+		System.out.println("|============ element expired: "+ arg1.getObjectKey() + "," + arg1.getObjectValue() + "==========|");
 		// TODO Auto-generated method stub
 		
 	}
 
 	public void notifyElementPut(Ehcache arg0, Element arg1) throws CacheException {
-		System.out.println("|============ element putted: "+ arg1.getObjectKey() + "==========|");
+		System.out.println("|============ element putted: "+ arg1.getObjectKey() + "," + arg1.getObjectValue() + "==========|");
 		// TODO Auto-generated method stub
 		
 	}
 
 	public void notifyElementRemoved(Ehcache arg0, Element arg1) throws CacheException {
-		System.out.println("|============ element removed:"+ arg1.getObjectKey() + "==========|");
+		System.out.println("|============ element removed:"+ arg1.getObjectKey() + "," + arg1.getObjectValue() + "==========|");
 		// TODO Auto-generated method stub
 		
 	}
 
 	public void notifyElementUpdated(Ehcache arg0, Element arg1) throws CacheException {
-		System.out.println("|============ element updated:"+ arg1.getObjectKey() + "==========|");
+		System.out.println("|============ element updated:"+ arg1.getObjectKey() + "," + arg1.getObjectValue() + "==========|");
 		// TODO Auto-generated method stub
 		
 	}

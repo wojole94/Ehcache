@@ -1,10 +1,12 @@
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
-import net.sf.ehcache.config.*;
+import net.sf.ehcache.config.CacheConfiguration;
 import net.sf.ehcache.event.CacheEventListener;
 
 public class CacheHandler {
@@ -40,8 +42,24 @@ public class CacheHandler {
 		
 	}
 	
-	public Boolean check(String elem) {
+	public Boolean put(String alertID, String URL) {
 		
+		Element cacheElement = new Element(new String(alertID), new String(URL));
+		cache.put(cacheElement);
+		cache.flush();
+		
+		return true;	
+	}
+	
+	
+	public Element get(String alertID, String URL) {		
+		Element result = cache.get(alertID);
+		return result;
+		
+	}
+
+	
+	public Boolean check(String elem) {
 		if (cache.isKeyInCache(elem))
 			if (cache.get(elem) != null)
 				return true;
@@ -54,6 +72,16 @@ public class CacheHandler {
 		cache.remove(elem);
 		cache.flush();
 		return true;
+	}
+	
+	public List<String> getAllUnique(){
+		
+		List<String> resultList = (List<String>) cache.getKeys().stream().map(e1 -> {
+		return 	cache.get(e1).getObjectValue();
+		}).filter(StreamUtils.distinctByKey(e1 -> e1)).collect(Collectors.toList());
+		
+		
+		return resultList;
 	}
 	
 	public void setCacheTimeout(Long timeoutInSeconds) {
